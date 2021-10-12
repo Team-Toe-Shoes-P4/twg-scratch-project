@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const TripSchema = new mongoose.Schema(
   {
   locationName: String, 
-  coordinates: {latitude: String, longitude: String},
+  coordinates: {latitude: Number, longitude:Number},
   startDate: {
       type: Date,
       required: true

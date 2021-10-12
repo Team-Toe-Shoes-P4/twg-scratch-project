@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './client/index.js',
@@ -8,11 +9,13 @@ module.exports = {
         filename: 'bundle.js',
     },
     devServer: {
-        proxy: {
-            '/api/**': 'http://localhost:3000',
+      proxy: {
+        '/api/**': {
+          target: 'http://localhost:3000/',
         },
-        proxy: {
-          '/auth/**': 'http://localhost:3000',
+        '/auth/**': {
+          target: 'http://localhost:3000/',
+        }
       },
         static: {
             directory: __dirname,
@@ -52,6 +55,10 @@ module.exports = {
                   },
                 ],
               },
-        ]
+        ],
+        // plugins: [
+        //   // add the plugin to your plugins array
+        //   new webpack.DefinePlugin({ `process.env.MAPBOX`: JSON.stringify(${env.MAPBOX}) })
+        // ]
     },
 };
