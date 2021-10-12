@@ -7,7 +7,7 @@ import marker from '../images/marker.png';
 
 
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiZWNrc2RlZWVlZSIsImEiOiJja3VoZzU2aWcyZHk5Mm5xamVjYjJmYzBoIn0.jeBXbfS27jfUNY1XikYJ8w';
+const MAPBOX_TOKEN = '';
 
 const Map = ({listToDisplay, tripDetailOrAddTrip, upcomingOrPast, setCurSelectedTrip, defaultTrip}) => {
   const myTrips = listToDisplay[0] ? listToDisplay : [defaultTrip];
