@@ -7,10 +7,13 @@ import Map from './Map.jsx';
 import TripForm from './TripForm.jsx';
 import { Grid, TextField, Button, Paper } from '@material-ui/core';
 import logo from '../images/journalLogo.png';
+import { Redirect } from 'react-router';
 
 function Main (props) {
     const [totalDays, updateDays] = useState('');
     const [journalEntry, journalUpdater] = useState('');
+    const [isRegistered, setIsRegistered] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const [tripDetailOrAddTrip, setTripDetailOrAddTrip] = useState('tripDetail'); // to conditionally render either TripDetail or AddTrip component
     // const [deleter, entryDeleter] = useState('');
     // const [editor, entryEditor] = useState('');

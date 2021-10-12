@@ -21,13 +21,16 @@ function App(props) {
       <div>
         <Switch>
           <Route path="/main">
-            <Main />
+            <Main/>
           </Route>
           <Route path="/map">
             <Map />
           </Route>
           <Route exact path="/">
-          <LandingPage/>
+            {/* {
+            isRegistered ? <Redirect to="/main"/> : console.log('please enter un and pw')//render string `please enter your user name and PW`
+            } */}
+            <Main/>
           </Route>
           <Route path="/tripform">
             <TripForm journalUpdater={setJournalEntry} journalEntry={journalEntry}/>
