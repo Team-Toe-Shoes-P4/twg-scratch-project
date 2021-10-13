@@ -50,7 +50,7 @@
     "start": "nodemon server/server.js",
     "build": "NODE_ENV=production webpack",
     "dev": "concurrently \"nodemon server/server.js\" \"NODE_ENV=development webpack serve --open\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/cypress open"
   },
   "author": "",
   "license": "ISC"
