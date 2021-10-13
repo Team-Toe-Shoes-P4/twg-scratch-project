@@ -1,47 +1,63 @@
-import React, { useState, useEffect } from "react";
-import Login from "./Login.jsx";
+import React, { useState, useEffect, useContext } from "react";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { AuthContext } from "../context/authContext.jsx";
 import Main from "./Main.jsx";
-
-import Registration from "./Registration.jsx";
-
-// import MapBox from "./MapBox.jsx"
-
-// import Map from "./Map.jsx";
-
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import LandingPage from "./LandingPage.jsx";
+import Playground from "./Playground.jsx"
 
 function App() {
-  //assign useState with its val
-  //make a copy of this arr when updating since invoking with replace it?
-  // const [isLoggedIn, setLoginStatus] = useState(false);
-  // const [travelers, updateTravelers] = useState([]);
-  // //create a sextion to tag friends
+  const [isLoading, setIsLoading] = useState(true);
+  const {isAuth, toggleIsAuth, setUserID} = useContext(AuthContext);
 
-  const [isLoggedIn, setLoginStatus] = useState(false);
-  const [travelers, updateTravelers] = useState([]);
+  useEffect(() => {
+    (
+      async() => {
+        try{
+          const response = await fetch('auth/verify');
+          const data = await response.json();
+          console.log('data', data)
+        
+          if (!isAuth) {
+            if(data.isAuth) {toggleIsAuth(); setUserID(data.userID)}
+          }
+          if(isAuth) {
+            if(!data.isAuth) {toggleIsAuth()}
+          }
+        }
+        catch (err) {
+          console.log(err)
+        }
+        finally {setIsLoading(false)}
+      }
+    )()
+  }, [isAuth]
+  )
 
-  function regSubmit(regObj) {
-    //stores users reg info
-
-    console.log("reg deets ", regDetails);
-  }
-  //for reg component: firstName={regObj.regInfo.firstName} userEmail={regObj.regInfo.email} lastName={regObj.regInfo.lastName} password={regObj.regInfo.password} onChange={regSubmit}
   return (
-    <Router>
-        <Switch>
-          <Route path="/Main">
-            <Main />
-          </Route>
-          {/* Tester route made by c */}
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route>
-            {/* 404 Here */}
-          </Route>
-        </Switch>
-    </Router>
+      <Router>
+        {isLoading && <div>Loading</div>}
+        {!isLoading && 
+        <div>
+          <Switch>
+
+            <Route path="/main">
+              {isAuth ? <Main /> : <Redirect to='/' />}
+            </Route>  
+
+            <Route exact path="/">
+              {isAuth ? <Redirect to='/main'/> : <LandingPage /> }
+              </Route>
+            {/* Test route for C*/}
+        <Route path="/playgrounds">
+          <Playground/>
+        </Route>
+            <Route>
+              {/* 404 Here */}
+            </Route>
+          </Switch>
+        </div>
+}
+      </Router>
   );
 }
 

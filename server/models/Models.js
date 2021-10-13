@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    googleId: {
+      type: String,
+      require: false,
+    },
     trips: [{type: TripSchema, required: false}]
   }
 );

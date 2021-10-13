@@ -1,13 +1,25 @@
 const db = require('../config/db');
 const User = require('../models/Models');
 const mongoose = require("mongoose");
+const passwordUtils = require('../utils/passwordUtils.js')
 
 const apiController = {};
 
 apiController.createUser = async (req, res, next) => {
+    const {name, email, password} = req.body;
     try {
-        const {name, email, password} = req.body;
-        const newUser = await new User({name:name, email:email, password:password});
+        // Check if existing user
+        // const existingUser = await User.find({email: email});
+        // if(existingUser){
+        //     console.log("User already exists")
+        //     return res.redirect('/login')
+        // }
+
+        // Hash Password
+        const hash = await passwordUtils.hashPassword(password)
+        // Create user with hashed password value
+        const newUser = await new User({name:name, email:email, password:hash});
+        // Save document
         await newUser.save();
         return next();
     }

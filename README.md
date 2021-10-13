@@ -1,1 +1,10 @@
 # twg-scratch-project
+
+## Required Env Variables
+1. DATABASE
+1. SESSION_SECRET
+1. SALT_ROUNDS
+1. PORT
+1. GOOGLE_CLIENT_ID
+1. GOOGLE_CLIENT_SECRET
+1. NODE_ENV

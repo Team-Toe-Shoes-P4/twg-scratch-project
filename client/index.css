@@ -1,23 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
 
 body {
-  background-color: rgb(93, 145, 167);
+  background-color: none;
   color: rgb(70, 78, 103);
   font-family: "Architects Daughter";
-}
-
-h1 {
-  font-size: 50px;
-  font-family: "Architects Daughter", cursive;
-  position: static;
-  width: 100px;
-  margin: 10%;
-  padding: 10px;
-}
-
-h1,
-h4 {
-  text-align: center;
 }
 
 img {
@@ -33,46 +19,6 @@ textarea {
   width: 675px;
   font-family: "Architects Daughter";
 }
-
-div {
-  border-radius: 10px;
-}
-
-.loginMain {
-  background: #ffff;
-  border: 2px solid #d5ecc2;
-  border-radius: 50px;
-  border-width: 25px;
-  position: fixed;
-  padding: 20px;
-  top: 50%;
-  left: 50%;
-  right: 50%;
-  margin: -200px;
-  height: 300px;
-  width: 300px;
-  text-align: center;
-}
-
-/* .button{
-    width: 153px;
-    height: 21px;
-    background-color: white;
-    border-radius: 10px;
-    border-width: 2px;
-    outline: none;
-    font-family: 'Architects Daughter';
-} */
-
-/* button {
-  width: 153px;
-  height: 21px;
-  background-color: white;
-  border-radius: 10px;
-  border-width: 2px;
-  outline: none;
-  font-family: "Architects Daughter";
-} */
 
 .SubmitButton {
   width: 153px;
@@ -107,37 +53,6 @@ input {
   padding: 20px;
 }
 
-.currentEntry {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(1, 1fr);
-  column-gap: 10px;
-}
-
-.cell {
-  background-color: white;
-  height: 100px;
-  border-radius: 10px;
-  padding: 5px;
-  row-gap: 15px;
-  box-shadow: 5px 5px 5px #a7d4ff;
-}
-
-.document {
-  /* display: flex; */
-  justify-content: center;
-  background-color: whitesmoke;
-  width: 300px;
-  height: 50%;
-  margin-top: 10%;
-  border-radius: 5px;
-  border: 5px solid #d5ecc2;
-  position: center;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  padding: 20px;
-}
 
 .divScroll {
   margin: 4px, 4px;

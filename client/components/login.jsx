@@ -1,5 +1,5 @@
 import logo from '../images/journalLogo.png';
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 
 function Login(props) {
@@ -37,8 +37,6 @@ function Login(props) {
     const [loginFail, setLoginFail] = useState(false);
 
     const history = useHistory();
-
-
     return (
     <div>login page</div>
     )
