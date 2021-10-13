@@ -76,7 +76,7 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
         ref={mapRef}
         {...viewport}
         width="100%"
-        height="100%"
+        height="70%"
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
        >

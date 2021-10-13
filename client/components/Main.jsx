@@ -38,6 +38,7 @@ function Main (props) {
 
   useEffect(() => {
     // GET all trips from DB corresponding to current user
+    // eric2: 61664520a464b3356b6cb0bd
     fetch("/api/gettrips/6160bc7c7768777ca716ee68")
     .then(res => {return res.json()})
     .then(response => { console.log('response', response)
