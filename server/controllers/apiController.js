@@ -62,6 +62,8 @@ apiController.getTrips = async (req, res, next) => {
 }
 
 apiController.addTrip = async (req, res, next) => {
+  console.log("req.body: $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+  console.log(req.body);
     try {
         const {id} = req.params;
         const {trip} = req.body; 

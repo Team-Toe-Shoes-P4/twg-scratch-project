@@ -18,8 +18,6 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
       zoom: 1
     }
   );
-
-  console.log('selected', selected)
     // {
     //   latitude: 40.7128,
     //   longitude: -74.0060,
