@@ -113,21 +113,10 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
           mapboxApiAccessToken={MAPBOX_TOKEN}
           onViewportChange={handleViewportChange}
           reverseGeocode={true}
-
-          // onSelected={(result) => setSelected( {name: result.result.place_name,
-          //     latitude: result.result.center[1],
-          //     longitude: result.result.center[0]}) }
           onResult={(result) => {setSelected( {name: result.result.place_name,
             latitude: result.result.center[1],
             longitude: result.result.center[0]});
-          }
-          }
-          //  onClear={() => {
-          //   setSelected({latitude: null, longitude: null});
-
-          //  }
-          // }
-          //position="top-center"
+          }}
           marker={false}
         />
         }
