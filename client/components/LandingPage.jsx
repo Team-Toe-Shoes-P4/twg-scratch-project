@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {useHistory} from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {AuthContext} from '../context/authContext.jsx'
+import { useHistory } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -47,6 +47,7 @@ export default function SignInSide() {
   const [missingEntry, setMissingEntry] = useState(false);
   const [formatCorrect, setFormatCorrect] = useState(true);
   const [emailExists, setEmailExists] = useState(false);
+  const [incorrectCreds, setIncorrectCreds] = useState(false);
 
   const {toggleIsAuth, setUserID} = useContext(AuthContext);
   let history = useHistory();
@@ -80,6 +81,8 @@ export default function SignInSide() {
       setEmailExists(true)
     }
 
+    if(data.msg === "You are not authorized to view this. Please sign-in.") {setIncorrectCreds(true)}
+
     if(data.user) {toggleIsAuth(); setUserID(data.user._id); history.push('/main')}
     console.log(data)
   };
@@ -107,6 +110,14 @@ export default function SignInSide() {
       }, 2000);}
   }
   , [emailExists]);
+
+  useEffect(() => { 
+    if (incorrectCreds === true) {
+      setTimeout(() => {
+        setIncorrectCreds(false);
+      }, 2000);}
+  }
+  , [incorrectCreds]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -153,6 +164,12 @@ export default function SignInSide() {
               {emailExists && 
                <Typography style={{color:"red"}} component="p">
               User with this email is already registered. Please login.
+              </Typography>
+              }
+
+              {incorrectCreds && 
+               <Typography style={{color:"red"}} component="p">
+              Information you entered doesn't match our records. Please try again
               </Typography>
               }
 
