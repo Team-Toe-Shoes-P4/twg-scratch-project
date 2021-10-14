@@ -1,7 +1,7 @@
-const passport = require("passport")
-const LocalStrategy = require("passport-local").Strategy;
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/Models');
-const passwordUtils = require('../utils/passwordUtils.js')
+const passwordUtils = require('../utils/passwordUtils.js');
 /* 
     <---- PASSPORT DEMO ----->
     -- Here we tell passport which authentication-strategy middleware we want to use. 
@@ -16,21 +16,21 @@ const passwordUtils = require('../utils/passwordUtils.js')
     -- done: callback with parameters (error, user)
 */
 const inputFields = {
-    usernameField: "email",
-    passwordField: "password"
-}
+  usernameField: 'email',
+  passwordField: 'password'
+};
 const verifyCallback =  async (username, password, done) => {
-    try {
-        const user = await User.findOne({email:username});
-        if(!user) return done(null, false)
-        if(!(await passwordUtils.verifyPassword(password, user.password))) return done(null, false);
-        return done(null, user)
-    }
-    catch(error) {
-        done(error)
-    }
-}
-passport.use(new LocalStrategy(inputFields, verifyCallback))
+  try {
+    const user = await User.findOne({email:username});
+    if(!user) return done(null, false);
+    if(!(await passwordUtils.verifyPassword(password, user.password))) return done(null, false);
+    return done(null, user);
+  }
+  catch(error) {
+    done(error);
+  }
+};
+passport.use(new LocalStrategy(inputFields, verifyCallback));
 
 /* 
     -- Serializing a user determines which data of the user object
@@ -40,19 +40,19 @@ passport.use(new LocalStrategy(inputFields, verifyCallback))
        and retrieve the user object on subsequent HTTP requests
 */
 passport.serializeUser((user, done) => {
-    done(null, user._id);
-})
+  done(null, user._id);
+});
 
 passport.deserializeUser(async (id, done)=>{
-    try {
-        const user = await User.findById(id).catch(error=>{
-            console.log("Error deserializing. \n")
-            done(err)
-        });
-        if(!user) return done(null, false);
-        done(null, user);
-    }
-    catch(err) {
-        done(error)
-    }
-})
+  try {
+    const user = await User.findById(id).catch(error=>{
+      console.log('Error deserializing. \n');
+      done(error);
+    });
+    if(!user) return done(null, false);
+    done(null, user);
+  }
+  catch(err) {
+    done(err);
+  }
+});

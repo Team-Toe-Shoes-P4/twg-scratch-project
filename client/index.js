@@ -1,12 +1,12 @@
 import React from 'react';
 import {render} from 'react-dom';
 import App from './components/App.jsx';
-import {AuthProvider} from "./context/authContext.jsx"
+import {AuthProvider} from './context/authContext.jsx';
 
 
 render(
-    <AuthProvider>
+  <AuthProvider>
     <App/>
-    </AuthProvider>,
-    document.getElementById('app')
+  </AuthProvider>,
+  document.getElementById('app')
 );
