@@ -22,6 +22,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
   const { userID } = useContext(AuthContext);
   const [formValues, setFormValues] = useState(defaultTripValues);
   const [noLocation, setNoLocation] = useState(false);
+  const [tripAdded, setTripAdded] = useState(false);
   const context = useContext(AuthContext);
   
   useEffect(() => {
@@ -32,12 +33,15 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
     });
   }, [selected]);
 
-  console.log('formValues', formValues);
-
+  useEffect(() => { 
+    if (tripAdded) {
+      setTimeout(() => {
+        setTripAdded(false);
+      }, 3000);}
+  }
+  , [tripAdded]);
 
   useEffect(() => {if(noLocation && selected.longitude) {setNoLocation(false);} }, [selected]);
-
-
   function handleFormSubmit(e){
     e.preventDefault();
     if (!formValues.locationName) {setNoLocation(true); return;}
@@ -51,10 +55,11 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
     })
       .then(response => response.json())
       .then(data => {
-        // Do something with your data here
+        if (data.id) {setTripAdded(formValues.locationName);}
         setFormValues(defaultTripValues);
         setUpcomingTrips(data.upcomingTrips); 
         setPastTrips(data.pastTrips); 
+        setSelected({name: null, latitude: null, longitude: null});
       })
       .catch(error => console.log(error));
     // Delete Later
@@ -65,7 +70,12 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
 
   return (
     <Container maxWidth="md" sx={{marginTop:'30px'}}>
-      <form onSubmit={handleFormSubmit} >
+      {tripAdded && 
+         <Typography variant="h6" align="center">
+         Trip to {tripAdded} has been successfully submitted!         
+         </Typography>
+      }
+      {!tripAdded && <form onSubmit={handleFormSubmit} >
         <Grid container direction="column" spacing={1} justifyContent="center">
           {/* Form Title */}
           {(!formValues.locationName && !noLocation) &&
@@ -159,7 +169,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
             </Button>
           </Grid>
         </Grid>
-      </form>
+      </form>}
     </Container>
   );
   

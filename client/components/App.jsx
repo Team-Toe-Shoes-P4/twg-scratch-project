@@ -6,7 +6,9 @@ import LandingPage from './LandingPage.jsx';
 import Playground from './Playground.jsx';
 import '../index.css';
 
-function App() {
+function App(props) {
+  console.log('props.', props)
+  console.log('context', AuthContext)
   const [isLoading, setIsLoading] = useState(true);
   const {isAuth, toggleIsAuth, setUserID} = useContext(AuthContext);
 
