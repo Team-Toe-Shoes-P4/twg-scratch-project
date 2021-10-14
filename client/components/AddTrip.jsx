@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react"; 
-import { AuthContext } from '../context/authContext.jsx'
+import React, { useState, useEffect, useContext } from 'react'; 
+import { AuthContext } from '../context/authContext.jsx';
 
 // import logo from '../images/journalLogo';
 import { 
@@ -8,149 +8,158 @@ import {
   Container, 
   Typography, 
   TextField,
-} from "@mui/material"
+} from '@mui/material';
 
 const defaultTripValues = {
-  locationName: "",
-  description: "",
-  startDate: "",
-  endDate: "",
+  locationName: '',
+  description: '',
+  startDate: '',
+  endDate: '',
   coordinates: {latitude: 0, longitude: 0}
-}
+};
           
-function AddTrip({ selected, setUpcomingTrips, setPastTrips }) {
+function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
   const { userID } = useContext(AuthContext);
-  const [formValues, setFormValues] = useState(defaultTripValues)
-  const context = useContext(AuthContext)
-  console.log("selected in AddTrip: ", selected)
+  const [formValues, setFormValues] = useState(defaultTripValues);
+  const [noLocation, setNoLocation] = useState(false);
+  const context = useContext(AuthContext);
   
   useEffect(() => {
     setFormValues(prevFormValues => {
       return { ...prevFormValues, 
         locationName: selected.name, 
-        coordinates : {latitude: selected.latitude, longitude: selected.longitude} }
-      })
-    console.log("selected in AddTrip useEffect: ", selected)
+        coordinates : {latitude: selected.latitude, longitude: selected.longitude} };
+    });
   }, [selected]);
-  
-  console.log("formValues: ", formValues)
-  // I think async/await was preventing e.preventDefault() from working, so the page was refreshing on submit
+
+  console.log('formValues', formValues);
+
+
+  useEffect(() => {if(noLocation && selected.longitude) {setNoLocation(false);} }, [selected]);
+
+
   function handleFormSubmit(e){
-    e.preventDefault()
-    console.log("Context object. Logged from < AddTripForm />\n", context)
-    // Modify url
-    // const url = `http://localhost:3000/api/addTrip/${context.user._id}`
+    e.preventDefault();
+    if (!formValues.locationName) {setNoLocation(true); return;}
+
     const response = fetch(`/api/addtrip/${userID}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formValues)
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formValues)
     })
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
         // Do something with your data here
-        console.log(data)
-    })
-    .catch(error => console.log(error))
+        setFormValues(defaultTripValues);
+        setUpcomingTrips(data.upcomingTrips); 
+        setPastTrips(data.pastTrips); 
+      })
+      .catch(error => console.log(error));
     // Delete Later
-    console.log("Add-trip-form values. Logged from < AddTripForm />\n", formValues)
+    console.log('Add-trip-form values. Logged from < AddTripForm />\n', formValues);
     // Reset form fields
-    setFormValues(defaultTripValues);
     // Update list of all trips in state. Triggers a re-invokation of useLayoutEffect in Main & rerender Map markers
-    setUpcomingTrips(response.upcomingTrips); 
-    setPastTrips(response.pastTrips); 
   }
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h5" align="center">
-        You're going to {formValues.locationName}!
-      </Typography>
+    <Container maxWidth="md">
       <form onSubmit={handleFormSubmit} >
-      <Grid container direction="column" spacing={3} justifyContent="center">
+        <Grid container direction="column" spacing={2} justifyContent="center">
           {/* Form Title */}
+          {(!formValues.locationName && !noLocation) &&
           <Typography variant="h5" align="center">
-              Add A Trip
+             Please select where you would like to go          
           </Typography>
+          }
+          {(formValues.locationName && !noLocation) &&
+          <Typography variant="h5" align="center">
+                You are going to {formValues.locationName}!
+
+          </Typography>}
+          {noLocation && 
+          <Typography variant="h5" align="center">
+              Please select where you would like to go first          
+          </Typography>}
           {/* Start-Date-Field Container*/}
           <Grid item >
-              <TextField
-                  autoFocus
-                  InputLabelProps={{shrink:true}}
-                  fullWidth
-                  required
-                  name="startDate"
-                  label="Start Date"
-                  type="date"
-                  value={formValues.startDate}
-                  onChange={event=>{
-                      setFormValues(prevState=>{
-                          return {
-                              ...prevState,
-                              startDate: event.target.value
-                          }
-                      })
-                  }}
-              />
+            <TextField
+              autoFocus
+              InputLabelProps={{shrink:true}}
+              fullWidth
+              required
+              name="startDate"
+              label="Start Date"
+              type="date"
+              value={formValues.startDate}
+              onChange={event=>{
+                setFormValues(prevState=>{
+                  return {
+                    ...prevState,
+                    startDate: event.target.value
+                  };
+                });
+              }}
+            />
           </Grid>
           {/* End-Date-Field Container*/}
           <Grid item >
-              <TextField
-                  InputLabelProps={{shrink:true}}
-                  fullWidth
-                  required
-                  name="endDate"
-                  label="End Date"
-                  type="date"
-                  value={formValues.endDate}
-                  onChange={event=>{
-                      setFormValues(prevState=>{
-                          return {
-                              ...prevState,
-                              endDate: event.target.value
-                          }
-                      })
-                  }}
-              />
+            <TextField
+              InputLabelProps={{shrink:true}}
+              fullWidth
+              required
+              name="endDate"
+              label="End Date"
+              type="date"
+              value={formValues.endDate}
+              onChange={event=>{
+                setFormValues(prevState=>{
+                  return {
+                    ...prevState,
+                    endDate: event.target.value
+                  };
+                });
+              }}
+            />
           </Grid>
           {/* Description-Field Container*/}
           <Grid item >
-              <TextField
-                  fullWidth
-                  required
-                  name="description"
-                  label="Trip Description"
-                  type="text"
-                  multiline
-                  rows={3}
-                  value={formValues.description}
-                  onChange={event=>{
-                      setFormValues(prevState=>{
-                          return {
-                              ...prevState,
-                              description: event.target.value
-                          }
-                      })
-                  }}
-              />
+            <TextField
+              fullWidth
+              required
+              name="description"
+              label="Trip Description"
+              type="text"
+              multiline
+              rows={2}
+              value={formValues.description}
+              onChange={event=>{
+                setFormValues(prevState=>{
+                  return {
+                    ...prevState,
+                    description: event.target.value
+                  };
+                });
+              }}
+            />
           </Grid>
           {/* Submit-Button Container */}
           <Grid item >
-              <Button 
-                  variant="contained"
-                  type="submit"
-                  fullWidth
-                  size="large"
-                  color="primary"
-              >
+            <Button 
+              variant="contained"
+              type="submit"
+              fullWidth
+              size="large"
+              color="primary"
+            >
                   Submit
-              </Button>
+            </Button>
           </Grid>
-      </Grid>
-    </form>
-</Container>
-  )
+        </Grid>
+      </form>
+    </Container>
+  );
   
 }        
             

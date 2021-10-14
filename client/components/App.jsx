@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
-import { AuthContext } from "../context/authContext.jsx";
-import Main from "./Main.jsx";
-import LandingPage from "./LandingPage.jsx";
-import Playground from "./Playground.jsx"
+import React, { useState, useEffect, useContext } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { AuthContext } from '../context/authContext.jsx';
+import Main from './Main.jsx';
+import LandingPage from './LandingPage.jsx';
+import Playground from './Playground.jsx';
+import '../index.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,28 +16,27 @@ function App() {
         try{
           const response = await fetch('auth/verify');
           const data = await response.json();
-          console.log('data', data)
         
           if (!isAuth) {
-            if(data.isAuth) {toggleIsAuth(); setUserID(data.userID)}
+            if(data.isAuth) {toggleIsAuth(); setUserID(data.userID);}
           }
           if(isAuth) {
-            if(!data.isAuth) {toggleIsAuth()}
+            if(!data.isAuth) {toggleIsAuth();}
           }
         }
         catch (err) {
-          console.log(err)
+          console.log(err);
         }
-        finally {setIsLoading(false)}
+        finally {setIsLoading(false);}
       }
-    )()
+    )();
   }, [isAuth]
-  )
+  );
 
   return (
-      <Router>
-        {isLoading && <div>Loading</div>}
-        {!isLoading && 
+    <Router>
+      {isLoading && <div>Loading</div>}
+      {!isLoading && 
         <div>
           <Switch>
 
@@ -46,18 +46,18 @@ function App() {
 
             <Route exact path="/">
               {isAuth ? <Redirect to='/main'/> : <LandingPage /> }
-              </Route>
+            </Route>
             {/* Test route for C*/}
-        <Route path="/playgrounds">
-          <Playground/>
-        </Route>
+            <Route path="/playgrounds">
+              <Playground/>
+            </Route>
             <Route>
               {/* 404 Here */}
             </Route>
           </Switch>
         </div>
-}
-      </Router>
+      }
+    </Router>
   );
 }
 
