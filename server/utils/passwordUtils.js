@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 /* 
     -- Salt: A value that is concatenated to a password before hashing
@@ -18,24 +18,24 @@ const bcrypt = require('bcrypt')
 */
 
 module.exports = {
-    hashPassword: async function(password) {
-        try {
-            const salt = await bcrypt.genSalt(Number.parseInt(process.env.SALT_ROUNDS))
-            // const salt = await bcrypt.genSalt(10)
-            const hash = await bcrypt.hash(password, salt);
-            return hash;
-        } catch (error) {
-            console.log(error)
-        }
-        return null;
-    },
-    verifyPassword: async function(password, hash) {
-        try {
-            const isValid = await bcrypt.compare(password, hash);
-            return isValid;
-        } catch(err) {
-            console.log(err);
-        }
-        return false;
+  hashPassword: async function(password) {
+    try {
+      const salt = await bcrypt.genSalt(Number.parseInt(process.env.SALT_ROUNDS));
+      // const salt = await bcrypt.genSalt(10)
+      const hash = await bcrypt.hash(password, salt);
+      return hash;
+    } catch (error) {
+      console.log(error);
     }
-}
+    return null;
+  },
+  verifyPassword: async function(password, hash) {
+    try {
+      const isValid = await bcrypt.compare(password, hash);
+      return isValid;
+    } catch(err) {
+      console.log(err);
+    }
+    return false;
+  }
+};

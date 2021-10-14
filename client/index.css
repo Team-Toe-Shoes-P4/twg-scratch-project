@@ -1,83 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
-
-body {
-  background-color: none;
-  color: rgb(70, 78, 103);
-  font-family: "Architects Daughter";
-}
-
-img {
-  border-radius: 20px;
-  height: 100px;
-  margin-left: 5%;
-  margin-top: -75%;
-  margin-bottom: 0px;
-  position: left;
-}
-
-textarea {
-  width: 675px;
-  font-family: "Architects Daughter";
-}
-
-.SubmitButton {
-  width: 153px;
-  height: 30px;
-  font-size: 15px;
-  background-color: #d5ecc2;
-  border-radius: 10px;
-  border-width: 0px;
-  margin: 10px;
-}
-
-input {
-  width: 100%;
-  height: 30px;
-  background: none;
-  border: 2px solid #98ddca;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-}
-
-.loginSubHeading {
-  margin-top: 5%;
-}
-
-.container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(7, 100px);
-  row-gap: 15px;
-  outline-color: blue;
-  padding: 20px;
-}
-
-
-.divScroll {
-  margin: 4px, 4px;
-  padding: 4px;
-  background-color: #d5ecc2;
-  width: 500px;
-  height: 110px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align: justify;
-}
-
-.map-component {
-  margin: 10vh 20vw 10vh 20vw;
-  height: 60vh;
-}
-
-.map-page {
-  height: 100vh;
-  width: 100vw;
-}
 
 .marker {
  height: 40px;
  width: 25px;
 }
+
+body {
+  margin: 0;
+}
+
 
 

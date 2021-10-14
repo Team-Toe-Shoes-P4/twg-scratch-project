@@ -1,24 +1,24 @@
 import React, {useContext} from 'react';
-import { Link } from 'react-router-dom'
 import { makeStyles, AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // Delete this later
 import useTheme from '@material-ui/core/styles/useTheme';
 
-import { AuthContext } from '../context/authContext.jsx'
-import Button from "./c-MUI-components/LogoutButton.jsx"
+import { AuthContext } from '../context/authContext.jsx';
+import Button from '@mui/material/Button';
 
-export default function AppHeader() {
+import LogoutButton from './c-MUI-components/LogoutButton.jsx';
+
+export default function AppHeader(props) {
   /* 
         --- > TO DO <---
         - Update Login Link
         - Maybe Pop up menu
     */
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   const classes = useStyles();
   // Delete this later
-  console.log('Material UI theme object. Logged from <AppHeader />\n', useTheme())
 
   
   return (
@@ -31,7 +31,10 @@ export default function AppHeader() {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Travel App
           </Typography>
-          <Button />
+          <Button variant="outlined" color='inherit' size='small' sx={{ m: '10px' }}  onClick={props.viewUpcomingTrips}> Upcoming Trips</Button>
+          <Button variant="outlined" color='inherit' size='small' sx={{ m: '10px' }}  onClick={props.viewPastTrips}> Past Trips</Button>
+          <Button variant="outlined" color='inherit' size='small' sx={{ m: '10px' }}  onClick={props.viewAddTrip}> Add Trip</Button>
+          <LogoutButton />
         </Toolbar>
       </AppBar>
       {/* 
@@ -41,7 +44,7 @@ export default function AppHeader() {
       <Toolbar></Toolbar>
     </div>
   );
-};
+}
 
 const useStyles = makeStyles({
   root: { flexGrow: 1, zIndex:100 },
