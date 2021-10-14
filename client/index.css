@@ -1,24 +1,12 @@
-.map-component {
-
-  margin: 10px 20% 10px 20%;
-}
-
-.map-page{
-  width: 100vw;
-}
 
 .marker {
  height: 40px;
  width: 25px;
 }
 
-#app {
-  width: 100vw;
-  height: 100vh;
-}
-
 body {
   margin: 0;
 }
+
 
 
