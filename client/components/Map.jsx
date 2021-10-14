@@ -3,7 +3,9 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import MapGL, {Marker} from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
+import {Container} from '@mui/material';
 import marker from '../images/marker.png';
+
 
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
 const MAPBOX_TOKEN = '';
@@ -68,19 +70,18 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
   });
 
   return (
-    <div className='map-page'>
-      <div className='map-component'>
-        <MapGL
-          ref={mapRef}
-          {...viewport}
-          width="100%"
-          height="50%"
-          onViewportChange={handleViewportChange}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-        >
+    <Container maxWidth={false} fixed={false} disableGutters={true} sx={{ height: 'calc(100vh - 360px)', padding: '0', margin: '0'}}>
+      <MapGL
+        ref={mapRef}
+        {...viewport}
+        width="100%"
+        height="100%"
+        onViewportChange={handleViewportChange}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+      >
 
-          {/* TRIP DETAILS MODE */}
-          {tripDetailOrAddTrip === 'tripDetail' && 
+        {/* TRIP DETAILS MODE */}
+        {tripDetailOrAddTrip === 'tripDetail' && 
         // could change 'trips' to listToDisplay:
         trips.map((el, i) => { return (
           <Marker 
@@ -96,8 +97,8 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
           </Marker>);
         })}
 
-          {/* ADD TRIP MODE */}
-          { selected.latitude &&
+        {/* ADD TRIP MODE */}
+        { selected.latitude &&
            <Marker 
              latitude={selected.latitude}
              offsetTop={-30}
@@ -105,8 +106,8 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
              longitude={selected.longitude}>
              <img src={marker} className='marker' alt='marker' />
            </Marker>
-          }
-          {tripDetailOrAddTrip === 'addTrip' && 
+        }
+        {tripDetailOrAddTrip === 'addTrip' && 
         <Geocoder
           mapRef={mapRef}
           mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -129,10 +130,9 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
           //position="top-center"
           marker={false}
         />
-          }
-        </MapGL>
-      </div>
-    </div>
+        }
+      </MapGL>
+    </Container>
   );
 };
 

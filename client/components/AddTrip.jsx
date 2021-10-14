@@ -64,23 +64,22 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{marginTop:'30px'}}>
       <form onSubmit={handleFormSubmit} >
-        <Grid container direction="column" spacing={2} justifyContent="center">
+        <Grid container direction="column" spacing={1} justifyContent="center">
           {/* Form Title */}
           {(!formValues.locationName && !noLocation) &&
-          <Typography variant="h5" align="center">
-             Please select where you would like to go          
+          <Typography variant="h6" align="center">
+              Please enter destination in Search Bar         
           </Typography>
           }
           {(formValues.locationName && !noLocation) &&
-          <Typography variant="h5" align="center">
+          <Typography variant="h6" align="center">
                 You are going to {formValues.locationName}!
-
           </Typography>}
           {noLocation && 
-          <Typography variant="h5" align="center">
-              Please select where you would like to go first          
+          <Typography variant="h6" align="center" sx={{color: 'red'}}>
+              Please enter destination in Search Bar first       
           </Typography>}
           {/* Start-Date-Field Container*/}
           <Grid item >
@@ -89,6 +88,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
               InputLabelProps={{shrink:true}}
               fullWidth
               required
+              size="small"
               name="startDate"
               label="Start Date"
               type="date"
@@ -110,6 +110,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
               fullWidth
               required
               name="endDate"
+              size="small"
               label="End Date"
               type="date"
               value={formValues.endDate}
@@ -131,6 +132,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
               name="description"
               label="Trip Description"
               type="text"
+              size="small"
               multiline
               rows={2}
               value={formValues.description}
