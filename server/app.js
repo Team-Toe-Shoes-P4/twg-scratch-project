@@ -52,13 +52,13 @@ app.use(session({
 app.use(passport.initialize()); 
 app.use(passport.session());
 
-// Example session use. Can delete later
-app.use((req, res, next) => {
-  if(req.session.views) req.session.views++
-  else req.session.views = 1;
-  console.log(req.session, '\nUser: \n', req.user,)
-  next();
-})
+// // Example session use. Can delete later
+// app.use((req, res, next) => {
+//   if(req.session.views) req.session.views++
+//   else req.session.views = 1;
+//   console.log(req.session, '\nUser: \n', req.user,)
+//   next();
+// })
 
 // ROUTES
 app.use('/auth', router.auth);

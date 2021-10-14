@@ -14,16 +14,16 @@ const redirects = {
   failureRedirect: '/auth/'
 }
 
-// Dev Only && Protected Routes Implementation
-router.get('/', authController.protectRoute, (req, res) => {
-  res.status(200).json({
-    // Created by express-session
-    msg: req.session,
-    // Created by passport
-    // Also populates req.session.passport.user
-    user: req.user
-  })
-})
+// // Dev Only && Protected Routes Implementation
+// router.get('/', authController.protectRoute, (req, res) => {
+//   res.status(200).json({
+//     // Created by express-session
+//     msg: req.session,
+//     // Created by passport
+//     // Also populates req.session.passport.user
+//     user: req.user
+//   })
+// })
 
 /* 
   <----- Base passport-local(email) auth ----->

@@ -7,7 +7,7 @@ import TripDetail from './TripDetail.jsx'
 import AddTrip from './AddTrip.jsx'
 import Map from './Map.jsx'
 import AppHeader from './AppHeader.jsx'
-import {AuthContext } from '../context/authContext.jsx';
+import { AuthContext } from '../context/authContext.jsx';
 
 
 function Main (props) {  
@@ -28,7 +28,6 @@ function Main (props) {
   const [isLoading, setIsLoading] = useState(true);
 
   console.log('curSelectedTrip', curSelectedTrip)
-  console.log('selected', selected);
 
   const {isAuth, userID} = useContext(AuthContext)
   console.log('userID', userID)
@@ -39,7 +38,8 @@ function Main (props) {
   useEffect(() => {
     // GET all trips from DB corresponding to current user
     // eric2: 61664520a464b3356b6cb0bd
-    fetch("/api/gettrips/6160bc7c7768777ca716ee68")
+    // 6160bc7c7768777ca716ee68
+    fetch(`/api/gettrips/${userID}`)
     .then(res => {return res.json()})
     .then(response => { console.log('response', response)
       // determine default selected trip:
@@ -57,7 +57,8 @@ function Main (props) {
   // determine whether to display markers for upcoming or past trips
   listToDisplay = upcomingOrPast === 'upcoming' ? upcomingTrips : pastTrips;
   // determine whether to render AddTrip or TripDetails component:
-  renderTripDetailOrAddTrip = tripDetailOrAddTrip === 'tripDetail' ? <TripDetail curSelectedTrip={curSelectedTrip}/> : <AddTrip selected={selected}/>;
+  renderTripDetailOrAddTrip = tripDetailOrAddTrip === 'tripDetail' ? <TripDetail curSelectedTrip={curSelectedTrip}/> 
+                                                                   : <AddTrip selected={selected} setUpcomingTrips={setUpcomingTrips} setPastTrips={setPastTrips}/>;
     
   return (
     <div>
