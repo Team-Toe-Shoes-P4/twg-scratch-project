@@ -1,10 +1,15 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import MapGL, {Marker} from 'react-map-gl';
+import MapGL, {Marker, NavigationControl} from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import {Container} from '@mui/material';
 import marker from '../images/marker.png';
+
+const navControlStyle = {
+  left: 10,
+  top: 10
+};
 
 
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
@@ -78,6 +83,7 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
+        <NavigationControl style={navControlStyle} />
 
         {/* TRIP DETAILS MODE */}
         {tripDetailOrAddTrip === 'tripDetail' && 

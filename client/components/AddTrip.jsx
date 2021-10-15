@@ -71,7 +71,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
   }
 
   return (
-    <Container maxWidth="md" sx={{marginTop:'10px'}}>
+    <Container maxWidth="md" sx={{marginTop:'30px'}}>
       {tripAdded && 
          <Typography variant="h6" align="center">
          Trip to {tripAdded} has been successfully submitted!         

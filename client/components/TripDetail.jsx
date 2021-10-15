@@ -28,17 +28,17 @@ function TripDetail({curSelectedTrip, listToDisplay, upcomingOrPast, deleteTrip}
   const endUpdated = end.toLocaleDateString();
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{marginTop: '30px'}}>
       {(listToDisplay && curSelectedTrip.locationName === listToDisplay[0]?.locationName && upcomingOrPast === 'upcoming') &&
            <>   <Typography align='center' variant="h5">
-                Your next trip is to         { locationName }
+                Your next trip:       { locationName }
 
            </Typography>
            <Typography align='center' variant="h5">
              <Button
                variant="text"
                type="button"
-               size="large"
+               size="small"
                color="primary"
                onClick = {() => deleteTrip(_id)}
              >CANCEL</Button>
@@ -60,7 +60,7 @@ function TripDetail({curSelectedTrip, listToDisplay, upcomingOrPast, deleteTrip}
                <Button
                  variant="text"
                  type="button"
-                 size="large"
+                 size="small"
                  color="primary"
                  onClick = {() => deleteTrip(_id)}
                >CANCEL</Button>
@@ -94,9 +94,8 @@ There are no trips to display at this time.
       
         {/* Row 2: Trip Description*/}
        
-        <br/>
-        <Typography sx={{height: '150px', overflow: 'scroll'}}>
-          { description }          
+        <Typography align='center' sx={{height: '150px', overflow: 'scroll'}}>
+          <pre style={{ fontFamily: 'inherit' }}>{ description }</pre>     
         </Typography>
         
       </div>}
