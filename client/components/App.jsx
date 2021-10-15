@@ -7,8 +7,6 @@ import Playground from './Playground.jsx';
 import '../index.css';
 
 function App(props) {
-  console.log('props.', props)
-  console.log('context', AuthContext)
   const [isLoading, setIsLoading] = useState(true);
   const {isAuth, toggleIsAuth, setUserID} = useContext(AuthContext);
 
