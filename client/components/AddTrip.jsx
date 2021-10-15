@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'; 
 import { AuthContext } from '../context/authContext.jsx';
 
+
 // import logo from '../images/journalLogo';
 import { 
   Grid, 
@@ -55,6 +56,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
     })
       .then(response => response.json())
       .then(data => {
+        console.log('data after added', data);
         if (data.id) {setTripAdded(formValues.locationName);}
         setFormValues(defaultTripValues);
         setUpcomingTrips(data.upcomingTrips); 
@@ -69,7 +71,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
   }
 
   return (
-    <Container maxWidth="md" sx={{marginTop:'30px'}}>
+    <Container maxWidth="md" sx={{marginTop:'10px'}}>
       {tripAdded && 
          <Typography variant="h6" align="center">
          Trip to {tripAdded} has been successfully submitted!         
@@ -79,7 +81,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
         <Grid container direction="column" spacing={1} justifyContent="center">
           {/* Form Title */}
           {(!formValues.locationName && !noLocation) &&
-          <Typography variant="h6" align="center">
+          <Typography variant="h6" align="center" text='secondary'>
               Please enter destination in Search Bar         
           </Typography>
           }
@@ -88,7 +90,7 @@ function AddTrip({ selected, setSelected, setUpcomingTrips, setPastTrips }) {
                 You are going to {formValues.locationName}!
           </Typography>}
           {noLocation && 
-          <Typography variant="h6" align="center" sx={{color: 'red'}}>
+          <Typography variant="h6" align="center" sx={{color:'red'}}>
               Please enter destination in Search Bar first       
           </Typography>}
           {/* Start-Date-Field Container*/}

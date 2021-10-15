@@ -1,6 +1,6 @@
 
 import React, {createContext, useState} from 'react';
-import { MuiThemeProvider } from '@material-ui/core';
+import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
 import { Theme } from './Theme.js';
 
 const AuthContext = createContext();
@@ -9,6 +9,7 @@ function AuthProvider({children}) {
   // Could do a request to auth/isAuth or something and store the result in state
   const [isAuth, setIsAuth] = useState(false);
   const [userID, setUserID] = useState('');
+  const [mapView, setMapView] = useState(true);
 
   // useEffect(() => {
   //     (async () => {
@@ -28,15 +29,21 @@ function AuthProvider({children}) {
     setUserID: function(arg){
       setUserID(arg);
     },
+    mapView,
+    toggleMapView: function(){
+      setMapView(prevState=> !prevState);
+    }
   };
 
 
-  return (
+  return (<>
+    <CssBaseline />
     <MuiThemeProvider theme={Theme}>
       <AuthContext.Provider value={globalData}>
         {children}
       </AuthContext.Provider>
     </MuiThemeProvider>
+  </>
   );
 }
 

@@ -35,7 +35,6 @@ function validateEmail(str) {
   return re.test(String(str).toLowerCase());
 }
 
-const theme = createTheme();
 
 export default function SignInSide() {
 
@@ -84,7 +83,7 @@ export default function SignInSide() {
 
     if(data.msg === 'You are not authorized to view this. Please sign-in.') {setIncorrectCreds(true);}
 
-    if(data.user) {setUserID(data.user._id); toggleIsAuth(); history.push('/main');}
+    if(data.user) {setUserID(data.user._id); toggleIsAuth();}
   };
 
   useEffect(() => { 
@@ -120,100 +119,99 @@ export default function SignInSide() {
   , [incorrectCreds]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
+    <Grid container component="main" sx={{ height: '100vh' }}>
+      <CssBaseline />
+      <Grid
+        item
+        xs={false}
+        sm={4}
+        md={7}
+        sx={{
+          backgroundImage: 'url(https://www.fodors.com/wp-content/uploads/2018/10/HERO_UltimateParis_Heroshutterstock_112137761.jpg)',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: (t) =>
+            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Box
           sx={{
-            backgroundImage: 'url(https://www.fodors.com/wp-content/uploads/2018/10/HERO_UltimateParis_Heroshutterstock_112137761.jpg)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            my: 8,
+            mx: 4,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              {isRegistered && 'SIGN IN'}
-              {!isRegistered && 'SIGN UP'}            
-            </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              {missingEntry && 
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            {isRegistered && 'SIGN IN'}
+            {!isRegistered && 'SIGN UP'}            
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            {missingEntry && 
                <Typography style={{color:'red'}} component="p">
               All inputs required
                </Typography>
-              }
+            }
 
-              {emailExists && 
+            {emailExists && 
                <Typography style={{color:'red'}} component="p">
               User with this email is already registered. Please login.
                </Typography>
-              }
+            }
 
-              {incorrectCreds && 
+            {incorrectCreds && 
                <Typography style={{color:'red'}} component="p">
               Information you entered does not match our records. Please try again
                </Typography>
-              }
+            }
 
-              {!formatCorrect && 
+            {!formatCorrect && 
                <Typography style={{color:'red'}} component="p">
                 Incorrect email format             
                </Typography>
-              }
+            }
 
-              { !isRegistered && <>
-                <TextField
-                  onChange = {(e) => setName(e.target.value)}
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="name"
-                  label="Name"
-                  type="name"
-                  id="name"
-                  autoComplete="name"
-                /> 
-                <TextField
-                  onChange = {(e) => setEmail(e.target.value)}
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  onChange = {(e) => setPassword(e.target.value)}
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                /> </>}
-              {isRegistered && 
+            { !isRegistered && <>
+              <TextField
+                onChange = {(e) => setName(e.target.value)}
+                margin="normal"
+                required
+                fullWidth
+                name="name"
+                label="Name"
+                type="name"
+                id="name"
+                autoComplete="name"
+              /> 
+              <TextField
+                onChange = {(e) => setEmail(e.target.value)}
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                onChange = {(e) => setPassword(e.target.value)}
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              /> </>}
+            {isRegistered && 
               <>
                 <TextField
                   onChange = {(e) => setEmail(e.target.value)}
@@ -237,35 +235,34 @@ export default function SignInSide() {
                   id="password"
                   autoComplete="current-password"
                 /> </>}
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                {isRegistered && 'Sign In'}
-                {!isRegistered && 'Sign Up'}
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              {isRegistered && 'Sign In'}
+              {!isRegistered && 'Sign Up'}
 
-              </Button>
-              <Grid container>
+            </Button>
+            <Grid container>
                 
-                <Grid item>
+              <Grid item>
                  
-                  <Button onClick = {() => {setIsRegistered(!isRegistered); setEmail(null); setName(null); setPassword(null);}}>                  
-                    {isRegistered && 'Don\'t have an account? Sign Up' }
-                    {!isRegistered && 'Back to Login' }
-                  </Button>
-                </Grid>
+                <Button onClick = {() => {setIsRegistered(!isRegistered); setEmail(null); setName(null); setPassword(null);}}>                  
+                  {isRegistered && 'Don\'t have an account? Sign Up' }
+                  {!isRegistered && 'Back to Login' }
+                </Button>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
+            </Grid>
+            <Copyright sx={{ mt: 5 }} />
           </Box>
-        </Grid>
+        </Box>
       </Grid>
-    </ThemeProvider>
+    </Grid>
   );
 }
