@@ -104,9 +104,6 @@ function Main (props) {
 
   // determine whether to render AddTrip or TripDetails component:
   // eslint-disable-next-line prefer-const
-  renderTripDetailOrAddTrip = tripDetailOrAddTrip === 'tripDetail' ? 
-    <TripDetail curSelectedTrip={curSelectedTrip} listToDisplay={listToDisplay} upcomingOrPast={upcomingOrPast} deleteTrip={deleteTrip}/> 
-    : <AddTrip selected={selected} setSelected={setSelected} setUpcomingTrips={setUpcomingTrips} setPastTrips={setPastTrips}/>;
     
   return (
     <div>
@@ -121,7 +118,7 @@ function Main (props) {
         />
         <div>
           {/* */}
-          {mapView ? 
+          {(mapView || (!mapView && tripDetailOrAddTrip === 'addTrip') ) ? 
             <Map 
               listToDisplay={listToDisplay} 
               upcomingOrPast={upcomingOrPast}
@@ -132,10 +129,19 @@ function Main (props) {
               selected={selected}
               setSelected={setSelected}
             /> 
-            : <TripList />
-          };                                                   
+            : <TripList 
+              listToDisplay={listToDisplay}
+              upcomingOrPast={upcomingOrPast}
+              defaultTrip={defaultTrip}
+            />
+          }                                                
         </div>
-        {renderTripDetailOrAddTrip}
+        {(tripDetailOrAddTrip === 'tripDetail' && mapView) 
+        &&  <TripDetail curSelectedTrip={curSelectedTrip} listToDisplay={listToDisplay} upcomingOrPast={upcomingOrPast} deleteTrip={deleteTrip}/> 
+        }
+        {tripDetailOrAddTrip === 'addTrip' 
+        && <AddTrip selected={selected} setSelected={setSelected} setUpcomingTrips={setUpcomingTrips} setPastTrips={setPastTrips}/>
+        }
         <div>
           {/* <button class='SubmitButton' onClick={handleSubmission}>Edit An Entry</button> {/**currently handleSubmission is not set up to edit or delete  */}
           {/* <button class='SubmitButton' onClick={handleSubmission}>Delete An Entry </button> */}
