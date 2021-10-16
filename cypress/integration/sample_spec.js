@@ -54,3 +54,21 @@ describe('Login page', () => {
   })
   
 })
+
+describe('Main page', () => {
+  // sign in to account and redirect to /main
+  beforeEach(() => {
+    cy.clearCookies()
+    cy.visit(`http://localhost:8080/`)
+    cy.get('#email').type('eric3@gmail.com')
+    cy.get('#password').type('eric3')
+    cy.get('#sign_in').click()
+  });
+
+  it('renders add trip component when add trip button clicked', () => {
+    cy.url().should('equal', 'http://localhost:8080/main')
+    cy.get('#addTripContainer').click()
+    cy.contains('#addTripContainer')
+  })
+
+})
