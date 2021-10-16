@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/authContext.jsx';
+import { CircularProgress } from '@mui/material';
 import Main from './Main.jsx';
 import LandingPage from './LandingPage.jsx';
 import Playground from './Playground.jsx';
@@ -35,7 +36,7 @@ function App(props) {
 
   return (
     <Router>
-      {isLoading && <div>Loading</div>}
+      {isLoading && <div style={{display:'flex', alignItems: 'center', justifyContent:'center', height: '100vh'}}><CircularProgress /></div>}
       {!isLoading && 
         <div>
           <Switch>

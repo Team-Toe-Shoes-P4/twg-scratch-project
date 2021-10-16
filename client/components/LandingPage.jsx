@@ -1,5 +1,8 @@
 /* eslint-disable prefer-const */
 import React, {useState, useEffect, useContext} from 'react';
+import { useHistory } from 'react-router-dom';
+import GoogleButton from 'react-google-button';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,8 +16,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import {AuthContext} from '../context/authContext.jsx';
-import { useHistory } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -235,10 +238,7 @@ export default function SignInSide() {
                   id="password"
                   autoComplete="current-password"
                 /> </>}
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            
             <Button
               id="sign_in"
               type="submit"
@@ -250,8 +250,10 @@ export default function SignInSide() {
               {!isRegistered && 'Sign Up'}
 
             </Button>
-            <Grid container>
-                
+            <Grid container direction="column" alignItems="center">
+              <Grid item sx={2}>
+                <GoogleButton />
+              </Grid>
               <Grid item>
                  
                 <Button id='registration' onClick = {() => {setIsRegistered(!isRegistered); setEmail(null); setName(null); setPassword(null);}}>                  
