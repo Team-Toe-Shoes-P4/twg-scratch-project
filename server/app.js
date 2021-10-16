@@ -2,15 +2,15 @@ const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
 // Used to store user sessions in db
-const MongoStore = require('connect-mongo')
+const MongoStore = require('connect-mongo');
 const cors = require('cors');
 const morgan = require('morgan');
 const colors = require('colors');
 
 const AppError = require('./utils/appError');
-const router= require('./routes/index')
-require('./auth/passportLocal.js')
-//require('./auth/passportGoogle.js')
+const router = require('./routes/index');
+require('./auth/passportLocal.js');
+require('./auth/passportGoogle.js');
 
 const app = express();
 
@@ -44,7 +44,7 @@ app.use(session({
     // secure: true,
     // sameSite : 'none,
   }
-}))
+}));
 
 /* 
     __Passport.js init__

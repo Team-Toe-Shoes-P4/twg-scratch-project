@@ -8,6 +8,7 @@ import Map from './Map.jsx';
 import AddTrip from './AddTrip.jsx';
 import TripDetail from './TripDetail.jsx';
 import TripList from './c-MUI-components/TripList.jsx';
+import { CircularProgress } from '@mui/material';
 
 import { AuthContext } from '../context/authContext.jsx';
 
@@ -108,8 +109,8 @@ function Main (props) {
   return (
     <div>
       {/* {props.userName}, you're on your way to: <br/> */}
-      {isLoading && <div>loading</div>}
-      { !isLoading && 
+      {isLoading && <div style={{display:'flex', alignItems: 'center', justifyContent:'center', height: '100vh'}}><CircularProgress /></div>}
+      {!isLoading && 
       <>
         <AppHeader 
           viewUpcomingTrips={viewUpcomingTrips}
