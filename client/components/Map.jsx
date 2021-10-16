@@ -1,16 +1,21 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import MapGL, {Marker} from 'react-map-gl';
+import MapGL, {Marker, NavigationControl} from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import {Container} from '@mui/material';
 import marker from '../images/marker.png';
+
+const navControlStyle = {
+  left: 10,
+  top: 10
+};
 
 
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZWNrc2RlZWVlZSIsImEiOiJja3VoZzU2aWcyZHk5Mm5xamVjYjJmYzBoIn0.jeBXbfS27jfUNY1XikYJ8w';
 
-const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomingOrPast, setCurSelectedTrip, defaultTrip}) => {
+const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomingOrPast, upcomingTrips, setCurSelectedTrip, defaultTrip}) => {
   const myTrips = listToDisplay[0] ? listToDisplay : [defaultTrip];
   const [trips, setTrips] = useState(listToDisplay);
   const [viewport, setViewport] = useState(
@@ -42,7 +47,7 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
     }
     setSelected({latitude: null, longitude: null});
     setTrips(listToDisplay); 
-  }, [tripDetailOrAddTrip, upcomingOrPast]);
+  }, [tripDetailOrAddTrip, upcomingOrPast, upcomingTrips]);
 
   const markerClick = (e) => {
     for (const trip of listToDisplay) {
@@ -53,7 +58,6 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
           zoom: 4,
           transitionDuration: 2000,
         });
-
         setCurSelectedTrip(trip);
       }
     }
@@ -79,6 +83,7 @@ const Map = ({listToDisplay, tripDetailOrAddTrip, selected, setSelected, upcomin
         onViewportChange={handleViewportChange}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
+        <NavigationControl style={navControlStyle} />
 
         {/* TRIP DETAILS MODE */}
         {tripDetailOrAddTrip === 'tripDetail' && 

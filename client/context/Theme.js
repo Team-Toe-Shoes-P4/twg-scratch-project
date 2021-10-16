@@ -10,7 +10,7 @@ export const Theme = createTheme({
       contrastText: '#FFFFFF'
     },
     secondary: {
-      main: '#000000'
+      main: '#ffc400'
     },
     text: {
       primary: 'rgba(0, 0, 0, 1)',

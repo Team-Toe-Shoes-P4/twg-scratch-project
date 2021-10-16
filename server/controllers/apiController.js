@@ -86,6 +86,7 @@ apiController.addTrip = async (req, res, next) => {
 
 apiController.deleteTrip = async (req, res, next) => {
   try {
+    console.log('delete trip req.body', req.body);
     const {id} = req.params;
     const {trip_id} = req.body;
     await User.findOneAndUpdate({_id: mongoose.Types.ObjectId(id)}, {$pull: { trips : {_id: mongoose.Types.ObjectId(trip_id)}}} );
