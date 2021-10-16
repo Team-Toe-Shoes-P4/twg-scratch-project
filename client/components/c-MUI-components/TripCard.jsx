@@ -14,6 +14,8 @@ export default function TripCard({trip}) {
   const startUpdated = start.toLocaleDateString();
   const end = new Date(trip.endDate);
   const endUpdated = end.toLocaleDateString();
+  const url = `https://source.unsplash.com/random/?${trip.locationName}`;
+
   return (
     <Card sx={{display: 'flex', height: '250px', width: '500px', margin: '20px'}}>
       <CardContent sx={{flexGrow:'1'}}>
@@ -34,7 +36,7 @@ export default function TripCard({trip}) {
       <CardMedia
         component="img"
         sx={{ width: 160, display: { xs: 'none', sm: 'block', md:'block', lg:'block' } }}
-        image='https://media.nationalgeographic.org/assets/photos/000/206/20669.jpg'
+        image={url}
         alt="Map of trip"
       />
     </Card>
