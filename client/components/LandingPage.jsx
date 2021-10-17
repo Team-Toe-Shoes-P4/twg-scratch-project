@@ -117,7 +117,7 @@ export default function SignInSide() {
     if (incorrectCreds === true) {
       setTimeout(() => {
         setIncorrectCreds(false);
-      }, 2000);}
+      }, 8000);}
   }
   , [incorrectCreds]);
 
@@ -169,7 +169,7 @@ export default function SignInSide() {
             }
 
             {incorrectCreds && 
-               <Typography style={{color:'red'}} component="p">
+               <Typography id={'incorrectCreds'} style={{color:'red'}} component="p">
               Information you entered does not match our records. Please try again
                </Typography>
             }
@@ -240,6 +240,7 @@ export default function SignInSide() {
                 /> </>}
             
             <Button
+              id="sign_in"
               type="submit"
               fullWidth
               variant="contained"
@@ -255,7 +256,7 @@ export default function SignInSide() {
               </Grid>
               <Grid item>
                  
-                <Button onClick = {() => {setIsRegistered(!isRegistered); setEmail(null); setName(null); setPassword(null);}}>                  
+                <Button id='registration' onClick = {() => {setIsRegistered(!isRegistered); setEmail(null); setName(null); setPassword(null);}}>                  
                   {isRegistered && 'Don\'t have an account? Sign Up' }
                   {!isRegistered && 'Back to Login' }
                 </Button>
